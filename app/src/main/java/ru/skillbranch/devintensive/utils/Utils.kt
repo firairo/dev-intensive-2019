@@ -1,19 +1,19 @@
 package ru.skillbranch.devintensive.utils
 
 object Utils {
-    fun parseFullName(fullName:String?):Pair<String?, String?>{
-        if(fullName=="") {
-            return null to null
-        }else if (fullName==" ")
-            return null to null
-            else{
-        val parts:List<String>? = fullName?.split(" ")
+    fun parseFullName (fullName:String?): Pair<String?, String?> {
+        val parts: List<String>? = fullName?.split(" ")
 
-        val firstName =parts?.getOrNull(0)
-        val lastName =parts?.getOrNull(1)
-        //return Pair(firstName, lastName)
-        return firstName to lastName
-    }}
+        var firstName = parts?.getOrNull(0)
+        var lastName = parts?.getOrNull(1)
+
+        if (firstName == null && lastName == null || fullName == "" || fullName == " ") {
+            firstName = null
+            lastName = null
+        }
+
+        return Pair(firstName, lastName)
+    }
 
     fun toInitials(firstName:String?, lastName:String?):String?{
         if (firstName == null){

@@ -15,22 +15,18 @@ data class User(
 
 ) {
 
-    constructor(id: String, firstName: String?, lastName: String?) : this(
+
+
+    constructor(id: String, firstName: String?, lastName: String?): this(
         id = id,
         firstName = firstName,
         lastName = lastName,
         avatar = null
     )
-
-    constructor(id: String) : this(id, "John", "Doe")
-
     init {
-
-        println(
-            "It's Alive!!! \n" +
-                    "${if (lastName === "Doe") "His name is $firstName $lastName" else "And his name is $firstName $lastName !!!"}\n"
-        )
+        println("Name is $firstName $lastName\n")
     }
+
     companion object Factory {
         private var lastId: Int = -1
         fun makeUser(fullName:String?) : User {
