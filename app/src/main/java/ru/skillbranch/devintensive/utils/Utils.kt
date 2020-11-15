@@ -2,7 +2,6 @@ package ru.skillbranch.devintensive.utils
 
 object Utils {
     fun parseFullName(fullName:String?):Pair<String?, String?>{
-        //TODO FIX ME!
         if(fullName=="") {
             return null to null
         }else if (fullName==" ")
