@@ -8,7 +8,7 @@ import java.util.*
 
 fun User.toUserView() : UserView{
 
-    val nickName = Utils.transliterations("$firstName $lastName")
+    val nickName = Utils.transliteration("$firstName $lastName")
     val initials = Utils.toInitials(firstName,lastName)
     val status = if (lastVisit==null) "Еще ни разу не был" else if (isOnline) "online" else "Последний раз был ${lastVisit.humanizeDiff()}"
 
@@ -24,7 +24,7 @@ fun User.toUserView() : UserView{
 
 
 
- fun Date.humanizeDiff(date: Date = Date()): String {
+fun Date.humanizeDiff(date: Date = Date()): String {
 
     return when (val diff = date.time - this.time) {
         in TimeUnits.SECOND.toMillis(0)..TimeUnits.SECOND.toMillis(1) -> "только что"
@@ -39,3 +39,6 @@ fun User.toUserView() : UserView{
     }
 
 }
+
+
+

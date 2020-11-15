@@ -1,6 +1,7 @@
 package ru.skillbranch.devintensive.models
 
 
+import ru.skillbranch.devintensive.extensions.humanizeDiff
 import java.util.*
 
 abstract class BaseMessage (
