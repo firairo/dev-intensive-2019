@@ -10,12 +10,12 @@ object Utils {
     )
 
     fun parseFullName(fullName: String?): Pair<String?, String?> {
-        val parts: List<String>? = fullName?.trim()?.replace(Regex("\\s+"), " ")?.split(" ")
+        val parts: List<String>? = fullName?.trim()?.replace(Regex(" +"), " ")?.split(" ")
 
         val firstName = parts?.notEmptyOrNullAt(0)
         val lastName = parts?.notEmptyOrNullAt(1)
 
-        return firstName to lastName
+        return firstName to firstName
     }
 
     private fun List<String>.notEmptyOrNullAt(index: Int) = getOrNull(index).let {
