@@ -1,10 +1,8 @@
 package ru.skillbranch.devintensive.models
 
-
-import ru.skillbranch.devintensive.extensions.humanizeDiff
 import java.util.*
 
-abstract  class BaseMessage(
+abstract class BaseMessage(
     val id: String,
     val from: User?,
     val chat: Chat,
@@ -22,12 +20,13 @@ abstract  class BaseMessage(
             chat: Chat,
             date: Date = Date(),
             type: String = "text",
-            payload: Any?
+            payload: Any?,
+            isIncoming: Boolean = false
         ): BaseMessage {
             lastId++
             return when (type) {
-                "image" -> ImageMessage("$lastId", from, chat, date = date, image = payload.toString())
-                else -> TextMessage("$lastId", from, chat, date = date, text = payload.toString())
+                "image" -> ImageMessage("$lastId", from, chat, isIncoming, date, payload.toString())
+                else -> TextMessage("$lastId", from, chat, isIncoming, date, payload.toString())
             }
         }
     }
