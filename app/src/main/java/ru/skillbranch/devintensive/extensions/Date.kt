@@ -50,11 +50,11 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             in 0.sec..1.sec -> "только что"
             in 2.sec..45.sec -> "несколько секунд назад"
             in 46.sec..75.sec -> "минуту назад"
-            in 76.sec..45.min -> "${TimeUnits.MINUTE.plural(diff.asMin)} назад"
+            in 76.sec..45.min -> "${MINUTE.plural(diff.asMin)} назад"
             in 46.min..75.min -> "час назад"
-            in 76.min..22.hour -> "${TimeUnits.HOUR.plural(diff.asHour)} назад"
+            in 76.min..22.hour -> "${HOUR.plural(diff.asHour)} назад"
             in 23.hour..26.hour -> "день назад"
-            in 27.hour..360.day -> "${TimeUnits.DAY.plural(diff.asDay)} назад"
+            in 27.hour..360.day -> "${DAY.plural(diff.asDay)} назад"
             else -> "более года назад"
         }
     } else {
@@ -62,11 +62,11 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             in (-1).sec..0.sec -> "прямо сейчас"
             in (-45).sec..(-1).sec -> "через несколько секунд"
             in (-75).sec..(-45).sec -> "через минуту"
-            in (-45).min..(-75).sec -> "через ${TimeUnits.MINUTE.plural(diff.asMin)}"
+            in (-45).min..(-75).sec -> "через ${MINUTE.plural(diff.asMin)}"
             in (-75).min..(-45).min -> "через час"
-            in (-22).hour..(-75).min -> "через ${TimeUnits.HOUR.plural(diff.asHour)}"
+            in (-22).hour..(-75).min -> "через ${HOUR.plural(diff.asHour)}"
             in (-26).hour..(-22).hour -> "через день"
-            in (-360).day..(-26).hour -> "через ${TimeUnits.DAY.plural(diff.asDay)}"
+            in (-360).day..(-26).hour -> "через ${DAY.plural(diff.asDay)}"
             else -> "более чем через год"
         }
     }
