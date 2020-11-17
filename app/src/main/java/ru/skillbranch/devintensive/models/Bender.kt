@@ -13,14 +13,16 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
     }
 
     fun listenAnswer(answer:String):Pair<String, Triple<Int, Int, Int>> {
-       return if(question.answer.contains(answer)){
-           question=question.nextQuestion()
-            "Отлично - это правильный ответ\n${question.question}" to status.color
-        }else{
-           status=status.nextStatus()
-            "Это не правильный ответ\n${question.question}" to status.color
-        }
-    }
+
+            return if (question.answer.contains(answer)) {
+                question = question.nextQuestion()
+                "Отлично - ты справился\n${question.question}" to status.color
+            } else  {
+                status = status.nextStatus()
+                "Это не правильный ответ\n${question.question}" to status.color
+
+
+            }}
 
     enum class Status(val color: Triple<Int,Int,Int>){
         NORMAL(Triple(255,255,255)),
@@ -56,7 +58,7 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
         SERIAL("Мой серийный номер?", listOf("2716057")){
             override fun nextQuestion():Question = IDLE
         },
-        IDLE("На этом впоросов больше нет", listOf()){
+        IDLE("На этом все, вопросов больше нет", listOf()){
             override fun nextQuestion():Question = IDLE
         };
 
