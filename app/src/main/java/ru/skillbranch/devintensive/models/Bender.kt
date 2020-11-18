@@ -11,16 +11,25 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
         Question.IDLE->Question.IDLE.question
 
     }
-
+    var i=0
     fun listenAnswer(answer:String):Pair<String, Triple<Int, Int, Int>> {
+
+        if (i<2){
        return if(question.answer.contains(answer)){
+           i=0
            question=question.nextQuestion()
             "Отлично - это правильный ответ\n${question.question}" to status.color
         }else{
+           i++
            status=status.nextStatus()
             "Это не правильный ответ\n${question.question}" to status.color
-        }
-    }
+        }}else{
+            i=0
+            status=Status.NORMAL
+            question=Question.NAME
+            var reset =  "Это не правильный ответ. Давай все по нововй\n${question.question}" to status.color
+            return reset
+    }}
 
     enum class Status(val color: Triple<Int,Int,Int>){
         NORMAL(Triple(255,255,255)),
