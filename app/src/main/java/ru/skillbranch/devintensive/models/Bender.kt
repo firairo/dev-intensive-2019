@@ -27,7 +27,7 @@ class Bender(var status:Status = Status.NORMAL, var question: Question = Questio
             i=0
             status=Status.NORMAL
             question=Question.NAME
-            var reset =  "Это не правильный ответ. Давай все по новой\n${question.question}" to status.color
+            var reset =  "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
             return reset
     }}
 
