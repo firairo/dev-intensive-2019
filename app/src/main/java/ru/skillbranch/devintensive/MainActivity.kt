@@ -1,12 +1,14 @@
 package ru.skillbranch.devintensive
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -88,8 +90,11 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         )
     }
 
+
+
     override fun onClick(v: View?) {
         if (v?.id == R.id.iv_send) {
+            hideKeyboard()
             val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
             messageEt.setText("")
             val (r, g, b) = color
@@ -98,5 +103,15 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
 
         }
+
+
     }
+
+    fun hideKeyboard(){
+        val inputManager:InputMethodManager =getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(currentFocus.windowToken, InputMethodManager.SHOW_FORCED)
+    }
+
+
+
 }
