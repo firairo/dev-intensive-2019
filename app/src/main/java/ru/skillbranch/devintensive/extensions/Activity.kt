@@ -1,8 +1,10 @@
 package ru.skillbranch.devintensive.extensions
 
 import android.app.Activity
+import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.graphics.Rect
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 
 fun Activity.isKeyboardOpen(): Boolean {
@@ -21,12 +23,16 @@ fun Activity.isKeyboardOpen(): Boolean {
     return false
 }
 
-fun Activity.isKeyboardClosed() = !isKeyboardOpen()
+fun Activity.isKeyboardClosed() = isKeyboardOpen()
 
 fun Activity.hideKeyboard() {
-    if (isKeyboardClosed()) return
-    val view = currentFocus ?: return
-    val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-}
 
+    if (isKeyboardClosed()) {
+        val view = this.currentFocus
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+    // else {
+    window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+    // }
+}
