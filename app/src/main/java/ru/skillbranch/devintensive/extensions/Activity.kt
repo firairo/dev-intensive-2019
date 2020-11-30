@@ -17,13 +17,12 @@ fun Activity.isKeyboardOpen(): Boolean {
     if (resourceId > 0) {
         heightDiff -= resources.getDimensionPixelSize(resourceId)
     }
-    if (heightDiff > 100) {
-        return true
-    }
+
+    
     return false
 }
 
-fun Activity.isKeyboardClosed() = isKeyboardOpen()
+fun Activity.isKeyboardClosed() = !isKeyboardOpen()
 
 fun Activity.hideKeyboard() {
 
