@@ -9,19 +9,13 @@ object Utils {
         'ъ' to "", 'ы' to "i", 'ь' to "", 'э' to "e", 'ю' to "yu", 'я' to "ya"
     )
 
-    fun parseFullName (fullName:String?): Pair<String?, String?> {
-        val parts: List<String>? = fullName?.split(" ")
+    fun parseFullName(fullName: String?): Pair<String?, String?> {
+        val parts: List<String>? = fullName?.trim()?.replace(Regex(" +"), " ")?.split(" ")
 
-        var firstName = parts?.getOrNull(0)
-        var lastName = parts?.getOrNull(1)
+        val firstName = parts?.notEmptyOrNullAt(0)
+        val lastName = parts?.notEmptyOrNullAt(1)
 
-        if (firstName == null && lastName == null || fullName == "" || fullName == " ") {
-            firstName = null
-            lastName = null
-
-        }
-
-        return Pair(firstName, lastName)
+        return firstName to lastName
     }
 
     private fun List<String>.notEmptyOrNullAt(index: Int) = getOrNull(index).let {
