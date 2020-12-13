@@ -217,7 +217,7 @@
                 android:id="@+id/et_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/profile_hint_about"/>
+                android:hint="@string/profile_hint_about" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
