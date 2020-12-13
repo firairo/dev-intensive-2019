@@ -9,19 +9,13 @@ object Utils {
         'ъ' to "", 'ы' to "i", 'ь' to "", 'э' to "e", 'ю' to "yu", 'я' to "ya"
     )
 
-    fun parseFullName (fullName:String?): Pair<String?, String?> {
-        val parts: List<String>? = fullName?.split(" ")
+    fun parseFullName(fullName: String?): Pair<String?, String?> {
+        val parts: List<String>? = fullName?.trim()?.replace(Regex(" +"), " ")?.split(" ")
 
-        var firstName = parts?.getOrNull(0)
-        var lastName = parts?.getOrNull(1)
+        val firstName = parts?.notEmptyOrNullAt(0)
+        val lastName = parts?.notEmptyOrNullAt(1)
 
-        if (firstName == null && lastName == null || fullName == "" || fullName == " ") {
-            firstName = null
-            lastName = null
-
-        }
-
-        return Pair(firstName, lastName)
+        return firstName to lastName
     }
 
     private fun List<String>.notEmptyOrNullAt(index: Int) = getOrNull(index).let {
@@ -48,4 +42,44 @@ object Utils {
         !firstName.isNullOrBlank() && !lastName.isNullOrBlank() -> firstName[0].toUpperCase() + lastName[0].toUpperCase().toString()
         else -> throw IllegalStateException("Incorrect state in 'when' expression")
     }
+
+    fun isRepositoryValid(repository: String): Boolean {
+        if (repository.isEmpty()) return true
+        var repo = repository
+
+        if (repo.startsWith("https://")) {
+            repo = repo.replace("https://", "")
+        }
+        if (repo.startsWith("www.")) {
+            repo = repo.replace("www.", "")
+        }
+
+        if (!repo.startsWith("github.com/")) {
+            return false
+        }
+
+        repo = repo.replace("github.com/", "")
+
+        repoExcludeSet.forEach {
+            if (repo.startsWith(it) && (repo.length == it.length || repo[it.length] == '/')) return false
+        }
+
+        return Regex("^[A-Za-z0-9]+(-[A-Za-z0-9]+)*/?$").matches(repo)
+    }
+
+    private val repoExcludeSet = setOf(
+        "enterprise",
+        "features",
+        "topics",
+        "collections",
+        "trending",
+        "events",
+        "marketplace",
+        "pricing",
+        "nonprofit",
+        "customer-stories",
+        "security",
+        "login",
+        "join"
+    )
 }

@@ -7,40 +7,42 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.repositories.PreferencesRepository
+import ru.skillbranch.devintensive.utils.Utils
 import java.security.cert.LDAPCertStoreParameters
 
-class ProfileViewModel : ViewModel(){
-    private val repository: PreferencesRepository = PreferencesRepository
+class ProfileViewModel : ViewModel() {
+
+    private val repository = PreferencesRepository
     private val profileData = MutableLiveData<Profile>()
     private val appTheme = MutableLiveData<Int>()
+    private val repositoryError = MutableLiveData<Boolean>()
+
+    fun getProfileData(): LiveData<Profile> = profileData
+    fun getTheme(): LiveData<Int> = appTheme
+    fun getRepositoryError(): LiveData<Boolean> = repositoryError
 
     init {
-        Log.d("M_ProfileViewModel","init view model")
         profileData.value = repository.getProfile()
-        appTheme.value = repository.getAppTheme()
+        appTheme.value = repository.theme
+        repositoryError.value = false
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("M_ProfileViewModel","view model cleared")
+    fun onRepositoryChanged(repository: String) {
+        repositoryError.value = !Utils.isRepositoryValid(repository)
     }
 
-    fun getProfileData():LiveData<Profile> = profileData
-
-    fun getTheme():LiveData<Int> = appTheme
-
-
-    fun saveProfileDate(profile: Profile){
-        repository.saveProfile(profile)
-        profileData.value = profile
+    fun saveProfileData(profile: Profile) {
+        val data = if (repositoryError.value!!) profile.copy(repository = "") else profile
+        repository.saveProfile(data)
+        profileData.value = data
     }
 
     fun switchTheme() {
-        if (appTheme.value == AppCompatDelegate.MODE_NIGHT_YES){
+        if (appTheme.value == AppCompatDelegate.MODE_NIGHT_YES) {
             appTheme.value = AppCompatDelegate.MODE_NIGHT_NO
-        }else{
+        } else {
             appTheme.value = AppCompatDelegate.MODE_NIGHT_YES
         }
-        repository.saveAppTheme(appTheme.value!!)
+        repository.theme = appTheme.value!!
     }
 }
