@@ -22,6 +22,7 @@ class ProfileViewModel : ViewModel() {
     fun getRepositoryError(): LiveData<Boolean> = repositoryError
 
     init {
+        Log.d("M_ProfileViewModel","init view model")
         profileData.value = repository.getProfile()
         appTheme.value = repository.theme
         repositoryError.value = false

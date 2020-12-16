@@ -72,6 +72,7 @@ class ProfileActivity : AppCompatActivity() {
 
         btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
+
         }
 
         et_repository.addTextChangedListener(object : TextWatcher {
@@ -82,7 +83,7 @@ class ProfileActivity : AppCompatActivity() {
             }
         })
 
-        //iv_avatar.initials = null
+        iv_avatar.initials = null
     }
 
     private fun initViewModel() {
@@ -102,7 +103,7 @@ class ProfileActivity : AppCompatActivity() {
                 v.text = it[k].toString()
             }
         }
-        //iv_avatar.initials = profile.initials
+        iv_avatar.initials = profile.initials
     }
 
     private fun updateRepoError(isError: Boolean) {
