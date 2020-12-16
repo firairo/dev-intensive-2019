@@ -11,6 +11,7 @@ class App : Application() {
         instance = this
     }
 
+    
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(PreferencesRepository.theme)
